@@ -4,7 +4,10 @@ import bandhierarchy.Band
 import bandhierarchy.retriever.GigRetriever
 
 object GigGraphCreator {
-  def run(band: Band, depth: Int = 1): Map[Band, Seq[Band]] = depth match {
+
+  private val defaultDepth = bandhierarchy.conf.getInt("depth")
+
+  def run(band: Band, depth: Int = defaultDepth): Map[Band, Seq[Band]] = depth match {
     case 0 => Map()
     case n =>
       supports(band) match {
