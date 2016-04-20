@@ -1,6 +1,7 @@
 package bandhierarchy
 
-import bandhierarchy.retriever.{BandRetriever, GigRetriever}
+import bandhierarchy.analysis.GigGraphCreator
+import bandhierarchy.retriever.BandRetriever
 
 object BandHierarchy {
   def main(args: Array[String]) {
@@ -8,8 +9,8 @@ object BandHierarchy {
 
     BandRetriever run name match {
       case Some(band) =>
-        val gigs = GigRetriever run band
-        println(gigs.mkString("\n"))
+        val graph = GigGraphCreator run band
+        println(graph .mkString("\n"))
       case None =>
         println(s"Couldn't find band $name")
     }
