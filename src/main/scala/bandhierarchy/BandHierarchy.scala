@@ -1,12 +1,17 @@
 package bandhierarchy
 
-import bandhierarchy.retriever.GigRetriever
+import bandhierarchy.retriever.{BandRetriever, GigRetriever}
 
 object BandHierarchy {
   def main(args: Array[String]) {
-    val startBand = Band("LCD Soundsystem", 241554)
-    val gigs = GigRetriever run startBand
+    val name = "LCD"
 
-    println(gigs.mkString("\n"))
+    BandRetriever run name match {
+      case Some(band) =>
+        val gigs = GigRetriever run band
+        println(gigs.mkString("\n"))
+      case None =>
+        println(s"Couldn't find band $name")
+    }
   }
 }
