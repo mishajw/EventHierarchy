@@ -16,9 +16,9 @@ object GigRetriever {
   case class ResultsPage(status: String, results: Results, perPage: Int, page: Int, totalEntries: Int)
   case class Results(event: Seq[Event])
   case class Event(performance: Seq[Performers])
-  case class Performers(billing: String, artist: Artist, id: Int)
-    { def toBand = Band(artist.displayName, id) }
-  case class Artist(displayName: String)
+  case class Performers(billing: String, artist: Artist)
+  case class Artist(displayName: String, id: Int)
+    { def toBand = Band(displayName, id) }
 
   /**
     * Get a band's gigs
@@ -30,7 +30,7 @@ object GigRetriever {
       .map(_.performance partition { p => p.billing == "headline" })
       .collect {
         case (Seq(headline), support) =>
-          Gig(headline.toBand, support map (_.toBand))
+          Gig(headline.artist.toBand, support map (_.artist.toBand))
       }
   }
 
