@@ -1,5 +1,7 @@
 package bandhierarchy.retriever
 
+import java.net.URLEncoder
+
 import bandhierarchy.Band
 import org.json4s.DefaultFormats
 import org.json4s.native.JsonMethods._
@@ -35,5 +37,5 @@ object BandRetriever {
   }
 
   def urlForName(name: String) =
-    s"$apiEndpoint/search/artists.json?query=$name&apikey=$apiKey"
+    s"$apiEndpoint/search/artists.json?query=${URLEncoder.encode(name, "UTF-8")}&apikey=$apiKey"
 }

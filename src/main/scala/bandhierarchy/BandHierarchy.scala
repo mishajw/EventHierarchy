@@ -4,7 +4,7 @@ import bandhierarchy.retriever.{BandRetriever, GigRetriever}
 
 object BandHierarchy {
   def main(args: Array[String]) {
-    val name = "LCD"
+    val name = "LCD Soundsystem"
 
     BandRetriever run name match {
       case Some(band) =>
