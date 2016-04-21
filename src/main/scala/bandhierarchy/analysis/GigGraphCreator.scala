@@ -43,5 +43,6 @@ object GigGraphCreator {
     (GigRetriever run band)
       .filter(_.main == band)
       .flatMap(_.support)
+      .toSet
   }
 }
