@@ -1,12 +1,18 @@
 package bandhierarchy.analysis
 
-import bandhierarchy.Band
+import bandhierarchy._
 import bandhierarchy.retriever.GigRetriever
 
 object GigGraphCreator {
 
-  private val defaultDepth = bandhierarchy.conf.getInt("depth")
+  private val defaultDepth = conf.getInt("depth")
 
+  /**
+    * Get the graph for a band
+    * @param band the band to start with
+    * @param depth the depth of the graph
+    * @return the graph
+    */
   def run(band: Band, depth: Int = defaultDepth): Map[Band, Seq[Band]] = depth match {
     case 0 => Map()
     case n =>
@@ -21,6 +27,9 @@ object GigGraphCreator {
       }
   }
 
+  /**
+    * Get who supports a band
+    */
   private def supports(band: Band): Seq[Band] = {
     (GigRetriever run band)
       .filter(_.main == band)
