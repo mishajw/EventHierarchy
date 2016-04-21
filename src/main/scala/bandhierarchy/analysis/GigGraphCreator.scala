@@ -13,7 +13,7 @@ object GigGraphCreator {
     * @param depth the depth of the graph
     * @return the graph
     */
-  def run(band: Band, depth: Int = defaultDepth): Map[Band, Seq[Band]] = depth match {
+  def run(band: Band, depth: Int = defaultDepth): GigGraph = depth match {
     case 0 => Map()
     case n =>
       supports(band) match {
