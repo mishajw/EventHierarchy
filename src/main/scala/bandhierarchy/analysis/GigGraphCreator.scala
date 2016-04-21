@@ -20,7 +20,7 @@ object GigGraphCreator {
     def traverse(band: Band, depth: Int): GigGraph = depth match {
       case 0 => Map()
       case _ =>
-        supports(band).filterNot(visited.contains) match {
+        supports(band) diff visited match {
           case Seq() => Map()
           case sup =>
             val rest = sup
@@ -39,7 +39,7 @@ object GigGraphCreator {
   /**
     * Get who supports a band
     */
-  private def supports(band: Band): Seq[Band] = {
+  private def supports(band: Band): Set[Band] = {
     (GigRetriever run band)
       .filter(_.main == band)
       .flatMap(_.support)
