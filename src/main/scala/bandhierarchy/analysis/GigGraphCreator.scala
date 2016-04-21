@@ -3,6 +3,7 @@ package bandhierarchy.analysis
 import bandhierarchy._
 import bandhierarchy.retriever.GigRetriever
 
+import scala.collection.immutable.{Set, HashMap}
 import scala.collection.mutable
 
 object GigGraphCreator {
@@ -11,6 +12,7 @@ object GigGraphCreator {
 
   /**
     * Get the graph for a band
+ *
     * @param band the band to start with
     * @return the graph
     */
@@ -18,14 +20,14 @@ object GigGraphCreator {
     val visited = mutable.Set[Band](band)
 
     def traverse(band: Band, depth: Int): GigGraph = depth match {
-      case 0 => Map()
+      case 0 => HashMap()
       case _ =>
         supports(band) diff visited match {
-          case Seq() => Map()
+          case sup if sup.isEmpty => HashMap()
           case sup =>
             val rest = sup
               .map(traverse(_, depth - 1))
-              .reduce(_ ++ _)
+              .reduce(combine)
 
             visited ++= sup
 
@@ -44,5 +46,11 @@ object GigGraphCreator {
       .filter(_.main == band)
       .flatMap(_.support)
       .toSet
+  }
+
+  private def combine[A](g1: GigGraph, g2: GigGraph): GigGraph = {
+    g1.merged(g2){ case ((k, v1), (_, v2)) =>
+      (k, v1 ++ v2)
+    }
   }
 }
