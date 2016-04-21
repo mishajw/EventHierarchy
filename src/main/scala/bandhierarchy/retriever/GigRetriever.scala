@@ -50,6 +50,6 @@ object GigRetriever {
     * Get the url for a band
     */
   private def urlForBand(band: Band) = {
-    s"$apiEndpoint/artists/${band.id}/gigography.json?apikey=$apiKey"
+    s"$apiEndpoint/artists/${band.id}/gigography.json?per_page=50&order=desc&apikey=$apiKey"
   }
 }
