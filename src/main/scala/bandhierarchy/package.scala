@@ -7,7 +7,7 @@ package object bandhierarchy {
   case class Gig(main: Band, support: Seq[Band])
 
   type GigGraph = HashMap[Band, Set[Band]]
-  type GigTree = (Band, Seq[Band])
+  case class GigTree(band: Band, children: Seq[GigTree])
 
   val conf = ConfigFactory.load()
 }
