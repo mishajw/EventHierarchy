@@ -3,6 +3,8 @@ package bandhierarchy.analysis
 import bandhierarchy._
 import bandhierarchy.retriever.GigRetriever
 
+import scala.collection.mutable
+
 object GigGraphCreator {
 
   private val defaultDepth = conf.getInt("depth")
@@ -10,21 +12,28 @@ object GigGraphCreator {
   /**
     * Get the graph for a band
     * @param band the band to start with
-    * @param depth the depth of the graph
     * @return the graph
     */
-  def run(band: Band, depth: Int = defaultDepth): GigGraph = depth match {
-    case 0 => Map()
-    case n =>
-      supports(band) match {
-        case Seq() => Map()
-        case sup =>
-          val rest = sup
-            .map(run(_, depth - 1))
-            .reduce(_ ++ _)
+  def run(band: Band): GigGraph = {
+    val visited = mutable.Set[Band](band)
 
-          rest + (band -> sup)
-      }
+    def traverse(band: Band, depth: Int): GigGraph = depth match {
+      case 0 => Map()
+      case _ =>
+        supports(band).filterNot(visited.contains) match {
+          case Seq() => Map()
+          case sup =>
+            val rest = sup
+              .map(traverse(_, depth - 1))
+              .reduce(_ ++ _)
+
+            visited ++= sup
+
+            rest + (band -> sup)
+        }
+    }
+
+    traverse(band, defaultDepth)
   }
 
   /**
