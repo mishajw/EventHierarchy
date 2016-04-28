@@ -16,13 +16,6 @@ object BandHierarchy {
         println("Done")
         println(weighted.mkString("\n"))
 
-        println("Sorting")
-        val sorted = weighted.toSeq
-          .map { case (b, (w, s)) => (b, w) }
-          .sortBy { case (_, w) => w }
-
-        println(sorted.mkString("\n"))
-
       case None =>
         println(s"Couldn't find band $name")
     }
