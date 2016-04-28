@@ -19,7 +19,7 @@ object D3GraphExporter {
       g.map { case (b, (w, sup)) =>
         sup.map { s =>
           ("source" -> (gBandSeq indexOf b)) ~
-          ("distination" -> (gBandSeq indexOf s))
+          ("destination" -> (gBandSeq indexOf s))
         }
       })
   }
