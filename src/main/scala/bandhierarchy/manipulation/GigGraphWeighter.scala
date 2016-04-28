@@ -1,4 +1,4 @@
-package bandhierarchy.analysis
+package bandhierarchy.manipulation
 
 import bandhierarchy.{Band, GigGraph, Weight, WeightedGigGraph}
 

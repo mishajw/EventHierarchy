@@ -1,6 +1,6 @@
 package bandhierarchy
 
-import bandhierarchy.analysis.{GigGraphCreator, GigGraphWeighter}
+import bandhierarchy.manipulation.{GigGraphCreator, GigGraphWeighter}
 import bandhierarchy.retriever.BandRetriever
 
 object BandHierarchy {

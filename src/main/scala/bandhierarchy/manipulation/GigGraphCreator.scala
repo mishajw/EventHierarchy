@@ -1,4 +1,4 @@
-package bandhierarchy.analysis
+package bandhierarchy.manipulation
 
 import bandhierarchy._
 import bandhierarchy.retriever.GigRetriever
