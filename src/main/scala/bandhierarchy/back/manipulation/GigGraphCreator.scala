@@ -1,10 +1,9 @@
-package bandhierarchy.manipulation
+package bandhierarchy.back.manipulation
 
-import bandhierarchy._
-import bandhierarchy.retriever.GigRetriever
+import bandhierarchy.back._
+import bandhierarchy.back.retriever.GigRetriever
 
-import scala.Predef
-import scala.collection.immutable.{HashSet, Set, HashMap}
+import scala.collection.immutable.{HashMap, Set}
 import scala.collection.mutable
 
 object GigGraphCreator {

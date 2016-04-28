@@ -1,8 +1,10 @@
+package bandhierarchy
+
 import com.typesafe.config.ConfigFactory
 
 import scala.collection.immutable.HashMap
 
-package object bandhierarchy {
+package object back {
   case class Band(name: String, id: Int)
   case class Gig(main: Band, support: Seq[Band])
 

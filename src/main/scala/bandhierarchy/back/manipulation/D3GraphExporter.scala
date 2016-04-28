@@ -1,6 +1,6 @@
-package bandhierarchy.manipulation
+package bandhierarchy.back.manipulation
 
-import bandhierarchy.WeightedGigGraph
+import bandhierarchy.back.WeightedGigGraph
 import org.json4s.JsonAST.JValue
 import org.json4s.JsonDSL._
 

@@ -1,6 +1,6 @@
-package bandhierarchy.manipulation
+package bandhierarchy.back.manipulation
 
-import bandhierarchy.{Band, GigGraph, Weight, WeightedGigGraph}
+import bandhierarchy.back._
 
 object GigGraphWeighter {
 

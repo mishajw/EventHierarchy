@@ -1,8 +1,8 @@
-package bandhierarchy.retriever
+package bandhierarchy.back.retriever
 
 import java.net.URLEncoder
 
-import bandhierarchy.Band
+import bandhierarchy.back.Band
 import org.json4s.DefaultFormats
 import org.json4s.native.JsonMethods._
 

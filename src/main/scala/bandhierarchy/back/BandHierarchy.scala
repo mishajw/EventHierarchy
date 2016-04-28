@@ -1,7 +1,7 @@
-package bandhierarchy
+package bandhierarchy.back
 
-import bandhierarchy.manipulation.{D3GraphExporter, GigGraphCreator, GigGraphWeighter}
-import bandhierarchy.retriever.BandRetriever
+import bandhierarchy.back.manipulation.{D3GraphExporter, GigGraphCreator, GigGraphWeighter}
+import bandhierarchy.back.retriever.BandRetriever
 import org.json4s.jackson.JsonMethods._
 
 object BandHierarchy {

@@ -1,6 +1,6 @@
-package bandhierarchy.retriever
+package bandhierarchy.back.retriever
 
-import bandhierarchy.{Band, Gig}
+import bandhierarchy.back.{Band, Gig}
 import org.json4s.DefaultFormats
 
 import scala.io.Source
