@@ -9,7 +9,7 @@ package object bandhierarchy {
   type GigGraph = HashMap[Band, Set[Band]]
 
   type Weight = Double
-  type WeightedGigGraph = HashMap[Band, (Weight, Seq[Band])]
+  type WeightedGigGraph = HashMap[Band, (Weight, Set[Band])]
 
   val conf = ConfigFactory.load()
 }
