@@ -2,7 +2,8 @@ package bandhierarchy.front
 
 import org.scalajs.dom
 import org.scalajs.dom.{Selection, raw}
-import org.singlespaced.d3js.d3
+import org.singlespaced.d3js.d3.Primitive
+import org.singlespaced.d3js.{BaseDom, d3}
 import org.singlespaced.d3js.histogramModule.Bin
 
 import scala.scalajs.js
@@ -62,10 +63,13 @@ object Graph extends JSApp {
         .data(json.nodes)
         .enter().append("circle")
         .attr("class", "node")
-        .attr("r", 5)
         .call(force.drag)
 
-      // node.append(title)...
+      val radius: node.DatumFunction[d3.Primitive] = (n: GraphNode) => n.weight
+      node.attr("r", radius)
+
+      val title: node.DatumFunction[d3.Primitive] = (n: GraphNode) => n.name
+      node.append("title").text(title)
 
       force.on("tick", (e: dom.Event) => {
         link
