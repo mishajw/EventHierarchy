@@ -16,7 +16,7 @@ object D3GraphExporter {
           ("weight" -> w)
       }) ~
     ("links" ->
-      g.map { case (b, (w, sup)) =>
+      g.flatMap { case (b, (w, sup)) =>
         sup.map { s =>
           ("source" -> (gBandSeq indexOf b)) ~
           ("destination" -> (gBandSeq indexOf s))
