@@ -3,7 +3,8 @@ package bandhierarchy.front
 import org.scalajs.dom
 import org.scalajs.dom.{Selection, raw}
 import org.singlespaced.d3js.d3.Primitive
-import org.singlespaced.d3js.{BaseDom, d3}
+import org.singlespaced.d3js.forceModule.Force
+import org.singlespaced.d3js.{BaseDom, Link, d3}
 import org.singlespaced.d3js.histogramModule.Bin
 
 import scala.scalajs.js
@@ -14,7 +15,7 @@ object Graph extends JSApp {
   @js.native
   trait GraphJson extends js.Object {
     val nodes: js.Array[GraphNode] = js.native
-    val links: js.Array[GraphNode] = js.native
+    val links: js.Array[GraphLink] = js.native
   }
 
   @js.native
@@ -25,7 +26,7 @@ object Graph extends JSApp {
   }
 
   @js.native
-  trait GraphLink extends js.Object {
+  trait GraphLink extends Link[GraphNode] {
     val source: Int = js.native
     val destination: Int = js.native
   }
@@ -33,7 +34,7 @@ object Graph extends JSApp {
   val width: Double = 600
   val height: Double = 400
 
-  val force = d3.layout.force()
+  val force = d3.layout.force[GraphNode, GraphLink]()
       .charge(-120)
       .linkDistance(30)
       .size((width, height))
@@ -49,8 +50,8 @@ object Graph extends JSApp {
       val json = jsonRaw.asInstanceOf[GraphJson]
 
       force
-        .nodes(json.nodes.asInstanceOf[js.Array[Nothing]])
-        .links(json.links.asInstanceOf[js.Array[Nothing]])
+        .nodes(json.nodes)
+        .links(json.links)
         .start()
 
       val link = svg.selectAll(".link")
