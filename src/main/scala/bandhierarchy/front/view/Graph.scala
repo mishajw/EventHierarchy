@@ -2,10 +2,9 @@ package bandhierarchy.front.view
 
 import org.scalajs.dom
 import org.singlespaced.d3js.forceModule.Node
-import org.singlespaced.d3js.{Link, Selection, d3}
+import org.singlespaced.d3js.{Link, d3}
 
 import scala.scalajs.js
-import scala.scalajs.js.UndefOr
 
 class GraphNode(val name: String, val id: Int, private val _weight: Double) extends Node {
   weight = _weight
@@ -67,12 +66,6 @@ class Graph(nodes: js.Array[GraphNode], links: js.Array[GraphLink]) {
 
     ()
   })
-
-  private def mkFunction[T, R](sel: Selection[T], f: (T, Int) => R) = {
-    new scala.scalajs.js.Function3[T, Int, scala.scalajs.js.UndefOr[Int], scala.scalajs.js.|[scala.scalajs.js.|[Double, String], Boolean]] {
-      override def apply(t: T, i: Int, j: UndefOr[Int]) = f(t, i).asInstanceOf[d3.Primitive]
-    }.asInstanceOf[sel.DatumFunction[d3.Primitive]]
-  }
 }
 
 object Graph {
