@@ -69,8 +69,8 @@ object Graph extends JSApp {
         .data(newLinks)
         .enter().append("line")
         .attr("class", "link")
-
-      link.attr("stroke-width", mkFunction(link, (l: GraphLink, i: Int) => 1))
+        .attr("stroke", "#BBB")
+        .attr("stroke-width", 1)
 
       val node: Selection[GraphNode] = svg.selectAll[GraphNode](".node")
         .data(newNodes)
@@ -85,8 +85,8 @@ object Graph extends JSApp {
       force.on("tick", (e: dom.Event) => {
         link
           .attr("x1", mkFunction(link, (n: GraphLink, i) => n.source.x))
-          .attr("y2", mkFunction(link, (n: GraphLink, i) => n.source.y))
-          .attr("x1", mkFunction(link, (n: GraphLink, i) => n.target.x))
+          .attr("y1", mkFunction(link, (n: GraphLink, i) => n.source.y))
+          .attr("x2", mkFunction(link, (n: GraphLink, i) => n.target.x))
           .attr("y2", mkFunction(link, (n: GraphLink, i) => n.target.y))
 
         node
