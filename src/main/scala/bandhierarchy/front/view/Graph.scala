@@ -43,14 +43,25 @@ class Graph(nodes: js.Array[GraphNode], links: js.Array[GraphLink]) {
       .attr("stroke-width", 1)
   }
 
-  val d3Nodes = {
-    val n = svg.selectAll[GraphNode](".node")
+  val d3NodeGroups = {
+    svg.selectAll("g.gnode")
       .data(nodes)
-      .enter().append("circle")
+      .enter().append("g")
+      .classed("gnode", value = true)
+  }
+
+  val d3Nodes = {
+    val n = d3NodeGroups.append("circle")
       .attr("class", "node")
       .call(force.drag)
 
     n.attr("r", mkFunction(n, (n: GraphNode, i) => n.weight))
+  }
+
+  val d3Titles = {
+    val t = d3NodeGroups.append("text")
+
+    t.text(mkFunction(t, (n: GraphNode, i) => n.name))
   }
 
   force.on("tick", (e: dom.Event) => {
@@ -63,6 +74,10 @@ class Graph(nodes: js.Array[GraphNode], links: js.Array[GraphLink]) {
     d3Nodes
       .attr("cx", mkFunction(d3Nodes, (n: GraphNode, i) => n.x))
       .attr("cy", mkFunction(d3Nodes, (n: GraphNode, i) => n.y))
+
+    d3Titles
+      .attr("x", mkFunction(d3Nodes, (n: GraphNode, i) => n.x))
+      .attr("y", mkFunction(d3Nodes, (n: GraphNode, i) => n.y))
 
     ()
   })
