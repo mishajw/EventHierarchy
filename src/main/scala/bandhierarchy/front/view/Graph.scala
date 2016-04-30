@@ -53,6 +53,8 @@ class Graph(nodes: js.Array[GraphNode], links: js.Array[GraphLink]) {
   val d3Nodes = {
     val n = d3NodeGroups.append("circle")
       .attr("class", "node")
+      .attr("fill", "#CCC")
+      .attr("stroke", "#333")
       .call(force.drag)
 
     n.attr("r", mkFunction(n, (n: GraphNode, i) => n.weight))
@@ -62,6 +64,7 @@ class Graph(nodes: js.Array[GraphNode], links: js.Array[GraphLink]) {
     val t = d3NodeGroups.append("text")
 
     t.text(mkFunction(t, (n: GraphNode, i) => n.name))
+    t.style("font-size", mkFunction(t, (n: GraphNode, i) => n.weight.get * 2 + "px"))
   }
 
   force.on("tick", (e: dom.Event) => {
