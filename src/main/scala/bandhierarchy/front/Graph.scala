@@ -25,11 +25,7 @@ object Graph extends JSApp {
     val weight: Double = js.native
   }
 
-  @js.native
-  trait GraphLink extends Link[GraphNode] {
-    val source: Int = js.native
-    val destination: Int = js.native
-  }
+  trait GraphLink extends Link[GraphNode]
 
   val width: Double = 600
   val height: Double = 400
@@ -54,23 +50,23 @@ object Graph extends JSApp {
         .links(json.links)
         .start()
 
-      val link = svg.selectAll(".link")
+      val link = svg.selectAll[GraphLink](".link")
         .data(json.links)
         .enter().append("line")
         .attr("class", "link")
         .style("stroke-width", 1)
 
-      val node = svg.selectAll(".node")
+      val node = svg.selectAll[GraphNode](".node")
         .data(json.nodes)
         .enter().append("circle")
         .attr("class", "node")
         .call(force.drag)
 
-      val radius: node.DatumFunction[d3.Primitive] = (n: GraphNode) => n.weight
-      node.attr("r", radius)
-
-      val title: node.DatumFunction[d3.Primitive] = (n: GraphNode) => n.name
-      node.append("title").text(title)
+//      val radius: node.DatumFunction[d3.Primitive] = (n: GraphNode, i: Int, j: Int) => n.weight.asInstanceOf[d3.Primitive]
+//      node.attr("r", radius)
+//
+//      val title: node.DatumFunction[d3.Primitive] = (n: GraphNode, i: Int, j: Int) => n.name
+//      node.append("title").text(title)
 
       force.on("tick", (e: dom.Event) => {
         link
