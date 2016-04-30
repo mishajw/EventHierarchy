@@ -92,7 +92,7 @@ object Graph extends JSApp {
         node
           .attr("cx", mkFunction(node, (n: GraphNode, i) => n.x))
           .attr("cy", mkFunction(node, (n: GraphNode, i) => n.y))
-        
+
         ()
       })
 
@@ -101,10 +101,8 @@ object Graph extends JSApp {
   }
 
   private def mkFunction[T, R](sel: Selection[T], f: (T, Int) => R) = {
-    val df: sel.DatumFunction[d3.Primitive] = new scala.scalajs.js.Function3[T,Int,scala.scalajs.js.UndefOr[Int],scala.scalajs.js.|[scala.scalajs.js.|[Double,String],Boolean]] {
+    new scala.scalajs.js.Function3[T, Int, scala.scalajs.js.UndefOr[Int], scala.scalajs.js.|[scala.scalajs.js.|[Double, String], Boolean]] {
       override def apply(t: T, i: Int, j: UndefOr[Int]) = f(t, i).asInstanceOf[d3.Primitive]
-    }
-
-    df
+    }.asInstanceOf[sel.DatumFunction[d3.Primitive]]
   }
 }
