@@ -1,7 +1,6 @@
 package bandhierarchy.front.controller
 
-import bandhierarchy.front.view.Graph
-import bandhierarchy.front.view.Graph.{GraphLink, GraphNode}
+import bandhierarchy.front.view.{Graph, GraphLink, GraphNode}
 import org.singlespaced.d3js.d3
 
 import scala.scalajs.js
@@ -38,7 +37,7 @@ object Main extends js.JSApp {
       val links = json.links
         .map(l => new GraphLink(nodes(l.source), nodes(l.target)))
 
-      Graph.start(nodes, links)
+      Graph(nodes, links)
 
       ()
     })
