@@ -57,29 +57,29 @@ class Graph(nodes: js.Array[GraphNode], links: js.Array[GraphLink]) {
       .attr("fill", "#CCC")
       .attr("stroke", "#333")
       .call(force.drag)
-      .attr("r", (n: GraphNode, i: Int) => n.weight)
+      .attr("r", (n: GraphNode) => n.weight)
   }
 
   val d3Titles = {
     d3NodeGroups.append("text")
-      .text((n: GraphNode, i: Int) => n.name)
-      .style("font-size", (n: GraphNode, i: Int) => n.weight.get * 2 + "px")
+      .text((n: GraphNode) => n.name)
+      .style("font-size", (n: GraphNode) => n.weight.get * 2 + "px")
   }
 
   force.on("tick", (e: dom.Event) => {
     d3Links
-      .attr("x1", (n: GraphLink, i: Int) => n.source.x)
-      .attr("y1", (n: GraphLink, i: Int) => n.source.y)
-      .attr("x2", (n: GraphLink, i: Int) => n.target.x)
-      .attr("y2", (n: GraphLink, i: Int) => n.target.y)
+      .attr("x1", (n: GraphLink) => n.source.x)
+      .attr("y1", (n: GraphLink) => n.source.y)
+      .attr("x2", (n: GraphLink) => n.target.x)
+      .attr("y2", (n: GraphLink) => n.target.y)
 
     d3Nodes
-      .attr("cx", (n: GraphNode, i: Int) => n.x)
-      .attr("cy", (n: GraphNode, i: Int) => n.y)
+      .attr("cx", (n: GraphNode) => n.x)
+      .attr("cy", (n: GraphNode) => n.y)
 
     d3Titles
-      .attr("x", (n: GraphNode, i: Int) => n.x)
-      .attr("y", (n: GraphNode, i: Int) => n.y)
+      .attr("x", (n: GraphNode) => n.x)
+      .attr("y", (n: GraphNode) => n.y)
 
     ()
   })
