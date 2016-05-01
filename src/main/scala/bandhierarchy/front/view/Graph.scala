@@ -3,6 +3,7 @@ package bandhierarchy.front.view
 import org.scalajs.dom
 import org.singlespaced.d3js.forceModule.Node
 import org.singlespaced.d3js.{Link, d3}
+import org.singlespaced.d3js.Ops._
 
 import scala.scalajs.js
 
@@ -51,36 +52,34 @@ class Graph(nodes: js.Array[GraphNode], links: js.Array[GraphLink]) {
   }
 
   val d3Nodes = {
-    val n = d3NodeGroups.append("circle")
+    d3NodeGroups.append("circle")
       .attr("class", "node")
       .attr("fill", "#CCC")
       .attr("stroke", "#333")
       .call(force.drag)
-
-    n.attr("r", mkFunction(n, (n: GraphNode, i) => n.weight))
+      .attr("r", (n: GraphNode, i: Int) => n.weight)
   }
 
   val d3Titles = {
-    val t = d3NodeGroups.append("text")
-
-    t.text(mkFunction(t, (n: GraphNode, i) => n.name))
-    t.style("font-size", mkFunction(t, (n: GraphNode, i) => n.weight.get * 2 + "px"))
+    d3NodeGroups.append("text")
+      .text((n: GraphNode, i: Int) => n.name)
+      .style("font-size", (n: GraphNode, i: Int) => n.weight.get * 2 + "px")
   }
 
   force.on("tick", (e: dom.Event) => {
     d3Links
-      .attr("x1", mkFunction(d3Links, (n: GraphLink, i) => n.source.x))
-      .attr("y1", mkFunction(d3Links, (n: GraphLink, i) => n.source.y))
-      .attr("x2", mkFunction(d3Links, (n: GraphLink, i) => n.target.x))
-      .attr("y2", mkFunction(d3Links, (n: GraphLink, i) => n.target.y))
+      .attr("x1", (n: GraphLink, i: Int) => n.source.x)
+      .attr("y1", (n: GraphLink, i: Int) => n.source.y)
+      .attr("x2", (n: GraphLink, i: Int) => n.target.x)
+      .attr("y2", (n: GraphLink, i: Int) => n.target.y)
 
     d3Nodes
-      .attr("cx", mkFunction(d3Nodes, (n: GraphNode, i) => n.x))
-      .attr("cy", mkFunction(d3Nodes, (n: GraphNode, i) => n.y))
+      .attr("cx", (n: GraphNode, i: Int) => n.x)
+      .attr("cy", (n: GraphNode, i: Int) => n.y)
 
     d3Titles
-      .attr("x", mkFunction(d3Nodes, (n: GraphNode, i) => n.x))
-      .attr("y", mkFunction(d3Nodes, (n: GraphNode, i) => n.y))
+      .attr("x", (n: GraphNode, i: Int) => n.x)
+      .attr("y", (n: GraphNode, i: Int) => n.y)
 
     ()
   })
